@@ -1,0 +1,9 @@
+future==0.18.3
+iso8601==1.1.0
+jsonpickle==3.0.1
+llvmlite==0.39.1
+numba==0.56.4
+numpy==1.23.5
+pygame==2.1.2
+pyserial==3.5
+PyYAML==6.0
