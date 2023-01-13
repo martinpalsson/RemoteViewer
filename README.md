@@ -1,5 +1,5 @@
 ![Screenshot](https://user-images.githubusercontent.com/17131686/212317142-6f3a021d-a7af-4114-84c0-c73b2190846a.png)
-The author standing before the VL53L5CX
+The author standing before the VL53L5CX, with his right side towards the viewer.
 
 # RemoteViewer
 View frames from the multizone ToF sensor VL53L5CX from a 3rd person point of view.
