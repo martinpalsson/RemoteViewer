@@ -5,6 +5,7 @@ import pygame as pg
 from workers import ReplayWorker, SerialPortWorker
 from surface_3d import CheckerBoard
 from command_args import run_arg_parse
+from datetime import datetime
 
 """
 Commands:
@@ -44,12 +45,19 @@ class Window3D:
             )
 
         elif args.live:
+            save_path = ""
+            if args.o == None:
+                file_timestamp = datetime.now().strftime("%d%m%Y_%H%M%S")
+                save_path = f'log_{file_timestamp}.json'
+            else:
+                save_path = args.o
+
             self.workers.append(
                 SerialPortWorker(
                     render=self,
                     com_port=args.p,
                     baud_rate=args.b,
-                    path_to_save=args.o,
+                    path_to_save=save_path,
                     point_color=pg.Color('magenta')
                 )
             )
