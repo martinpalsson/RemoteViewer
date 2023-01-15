@@ -130,3 +130,6 @@ dmypy.json
 
 # Assume all json in root directory are logs, ignore them
 log_*.json
+
+# Ignore scratchpad
+scratch.py

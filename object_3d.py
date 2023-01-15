@@ -8,6 +8,7 @@ from numba import njit
 def any_func(arr, a, b):
     return np.any((arr == a) | (arr == b))
 
+
 class Object3D:
     def __init__(self, render):
         self.render = render
@@ -18,7 +19,7 @@ class Object3D:
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
         self.color_faces = [(pg.Color('orange'), face) for face in self.faces]
-        self.draw_vertices, self.draw_faces, self.draw_labels = False, False, False
+        self.vertices_enabled, self.faces_enabled, self.labels_enabled = False, False, False
         self.label = ''
         self.vertex_color = pg.Color('white')
         self.vertex_size = 3
@@ -36,25 +37,33 @@ class Object3D:
         vertices = vertices @ self.render.projection.to_screen_matrix
         vertices = vertices[:, :2]
 
-        if self.draw_faces:
-            for index, color_face in enumerate(self.color_faces):
-                color, face = color_face
-                polygon = vertices[face]
-                if not any_func(polygon, self.render.H_WIDTH, self.render.H_HEIGHT):
-                    try:
-                        pg.draw.polygon(self.render.screen, color, polygon, width=0)
-                    except(TypeError):
-                        pass
-                        # print(polygon)
-                    if self.label and self.draw_labels:
-                        text = self.font.render(self.label[index], True, pg.Color('white'))
-                        self.render.screen.blit(text, polygon[-1])
+        if self.faces_enabled:
+            self.draw_faces(vertices)
 
-        if self.draw_vertices:
-            for vertex in vertices:
-                if not any_func(vertex, self.render.H_WIDTH, self.render.H_HEIGHT):
-                    pg.draw.circle(self.render.screen, self.vertex_color, vertex, self.vertex_size)
-        
+        if self.vertices_enabled:
+            self.draw_vertices(vertices)
+
+
+    def draw_vertices(self, vertices):
+        for vertex in vertices:
+            if not any_func(vertex, self.render.H_WIDTH, self.render.H_HEIGHT):
+                pg.draw.circle(self.render.screen, self.vertex_color, vertex, self.vertex_size)
+
+
+    def draw_faces(self, vertices):
+        for index, color_face in enumerate(self.color_faces):
+            color, face = color_face
+            polygon = vertices[face]
+            if not any_func(polygon, self.render.H_WIDTH, self.render.H_HEIGHT):
+                try:
+                    pg.draw.polygon(self.render.screen, color, polygon, width=0)
+                except(TypeError):
+                    pass
+                    # print(polygon)
+                if self.label and self.labels_enabled:
+                    text = self.font.render(self.label[index], True, pg.Color('white'))
+                    self.render.screen.blit(text, polygon[-1])
+
 
     def translate(self, pos):
         self.vertices = self.vertices @ translate(pos)

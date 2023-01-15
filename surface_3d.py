@@ -6,9 +6,7 @@ class CheckerBoard(Object3D):
     def __init__(self, render, board_size, cell_size, cell_color):
         super().__init__(render)
 
-        self.draw_vertices = False
-        self.draw_faces = True
-        self.draw_labels = False
+        self.faces_enabled = True
 
         self.edge_color = cell_color
 

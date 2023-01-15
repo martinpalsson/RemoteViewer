@@ -95,7 +95,8 @@ class ReplayWorker(threading.Thread):
         if self.ix >= self.ix_max:
             self.ix = 0 # Replay from 0
 
-        self.sensor.vertices = self.frames[self.ix].get_point_cloud()
+        # self.sensor.vertices = self.frames[self.ix].get_point_cloud()
+        self.sensor.update_pointcloud(self.frames[self.ix])
     
     def previous_frame(self):
         self.ix -= 1
@@ -103,7 +104,8 @@ class ReplayWorker(threading.Thread):
         if self.ix < 0:
             self.ix = self.ix_max - 1
         
-        self.sensor.vertices = self.frames[self.ix].get_point_cloud()
+        # self.sensor.vertices = self.frames[self.ix].get_point_cloud()
+        self.sensor.update_pointcloud(self.frames[self.ix])
     
     def run(self):
         try:
@@ -156,10 +158,11 @@ class SerialPortWorker(threading.Thread):
         try:
             if self.serial.in_waiting:
                 rx_data = self.serial.read_until()
-                data_chunks = rx_data.decode().replace(" ", "").strip().split(';')
-                reading = VL53L5CX_Reading(data_chunks)
+                tokenized_data = rx_data.decode().replace(" ", "").strip().split(';')
+                reading = VL53L5CX_Reading(tokenized_data)
                 
-                self.sensor.vertices = reading.get_point_cloud()
+                # self.sensor.vertices = reading.get_point_cloud()
+                self.sensor.update_pointcloud(reading)
                 self.frames.append(reading)
         except(ValueError):
             pass
