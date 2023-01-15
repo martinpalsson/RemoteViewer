@@ -1,9 +1,11 @@
 ![Screenshot](https://user-images.githubusercontent.com/17131686/212317142-6f3a021d-a7af-4114-84c0-c73b2190846a.png)
-The author standing before the VL53L5CX, with his right side towards the viewer.
+The repo owner standing before the VL53L5CX, with his right side towards the viewer.
 
 # RemoteViewer
 View frames from the multizone ToF sensor VL53L5CX from a 3rd person point of view.
 The name is a joke inspired by the movie "The men who stare at goats", where one of the antagonists of the movie is a former "remote viewer" for "new earth army". A remote viewer uses astral projection to see things remotely. When you are using this program, you are the astral projection of the VL53L5CX.
+
+[![Youtube video of the viewer in action!](https://img.youtube.com/vi/8U2Q_9LGuM0/0.jpg)](https://youtu.be/8U2Q_9LGuM0)
 
 The linear algebra and 3d stuff in this program is based on this tutorial:
 https://www.youtube.com/watch?v=M_Hx0g5vFko
@@ -13,7 +15,7 @@ Clone the repo and navigate to it in your shell.
 I know that there is an union with the PEP 604 shorhand somewhere (e.g. argument: str | None), so at least Python 10 is required.
 Create a virtual environment with python 3.10 or above.
 pip install -r requirements.txt
-python main.py --replay -i example_logs\log1.json -f 5
+python main.py --replay -i example_logs\multitarget2_15Hz.json -f 5
 
 ## Features
 ### Camera view
